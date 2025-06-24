@@ -72,19 +72,50 @@ function verifySetup() {
     console.log('✅ Angular CLI is working correctly');
 }
 
+function checkMockBackendDependencies() {
+    console.log('🔧 Checking mock backend dependencies...');
+    
+    // Check if json-server is available
+    const result = execCommand('npm list json-server');
+    if (!result.success) {
+        console.log('❌ json-server not found in dependencies');
+        console.log('Mock backend may not work properly');
+        return false;
+    }
+    
+    console.log('✅ Mock backend dependencies are ready');
+    return true;
+}
+
 function main() {
     try {
         checkNodeVersion();
         checkNpm();
         installDependencies();
         verifySetup();
+        checkMockBackendDependencies();
         
         console.log('');
         console.log('✅ Setup complete! You can now run:');
-        console.log('   npm start        - Start the development server');
-        console.log('   npm test         - Run tests');
-        console.log('   npm run build    - Build for production');
-        console.log('   npm run ng       - Use Angular CLI commands');
+        console.log('');
+        console.log('🅰️ Angular Development:');
+        console.log('   npm start              - Start the Angular development server');
+        console.log('   npm test               - Run tests');
+        console.log('   npm run build          - Build for production');
+        console.log('   npm run ng             - Use Angular CLI commands');
+        console.log('');
+        console.log('🚀 Mock Backend Server:');
+        console.log('   npm run mock:server    - Start the mock backend (port 3000)');
+        console.log('');
+        console.log('📋 Development Workflow:');
+        console.log('   1. Start mock backend: npm run mock:server');
+        console.log('   2. In another terminal, start Angular: npm start');
+        console.log('   3. Angular app: http://localhost:4200');
+        console.log('   4. Mock API: http://localhost:3000/api');
+        console.log('');
+        console.log('🔐 Mock Users:');
+        console.log('   - Librarian: librarian1 (can add/edit books)');
+        console.log('   - User: user1 (can view books)');
         
     } catch (error) {
         console.log('❌ Setup failed:', error.message);
